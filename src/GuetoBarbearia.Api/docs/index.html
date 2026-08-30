@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conheça os serviços da Gueto Barbearia e agende seu horário.">
+    <title>Gueto Barbearia | Cortes e penteados</title>
+</head>
+<body>
+    <header>
+        <a href="#inicio">Gueto Barbearia</a>
+
+        <nav aria-label="Navegação principal">
+            <a href="#inicio">Início</a>
+            <a href="#servicos">Serviços</a>
+            <a href="#barbeiros">Barbeiro</a>
+            <a href="#agendamento">Agendamento</a>
+            <a href="#contato">Contato</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio">
+            <h1>Bem-vindo à Gueto Barbearia</h1>
+            <img src="assets/images/LOGO GUeto.jpg" width="330" alt="Logotipo da Gueto Barbearia">
+            <p>Aqui, renovamos sua autoestima sem deixar de lado sua identidade.</p>
+            <a href="#agendamento">Agendar agora</a>
+        </section>
+
+        <section id="servicos">
+            <h2>Nossos serviços</h2>
+            <p>Conheça os serviços oferecidos pela Gueto Barbearia.</p>
+            <article class="servico">
+                <h3>Twist</h3>
+                <p>O cabelo é dividido em mechas, e cada uma é torcida em duas partes.</p>
+
+                <div class="servico-imagens">
+                    <img src="assets/images/Twist-EX1.jpg" width="245" alt="Primeiro exemplo de penteado twist" loading="lazy">
+                    <img src="assets/images/Twist-EX2.jpg" width="245" alt="Segundo exemplo de penteado twist" loading="lazy">
+                </div>
+
+                <p><strong>Preço:</strong> R$ 120,00</p>
+            </article>
+
+            <article class="servico">
+                <h3>Barrel Twists</h3>
+                <p>É um estilo moderno e marcante que mistura a base de tranças rasteiras com torções de mechas.</p>
+
+                <div class="servico-imagens">
+                    <img src="assets/images/Barrel-1.jpg" width="245" alt="Primeiro exemplo de barrel twists" loading="lazy">
+                    <img src="assets/images/Barrel-2.jpg" width="245" alt="Segundo exemplo de barrel twists" loading="lazy">
+                </div>
+
+                <p><strong>Preço:</strong> R$ 150,00</p>
+            </article>
+
+            <article class="servico">
+                <h3>Corte de cabelo (americano)</h3>
+                <p>O complemento perfeito para seus penteados. Faça seu retwist e saia na régua.</p>
+
+                <div class="servico-imagens">
+                    <img src="assets/images/Corte-1.jpg" width="245" alt="Primeiro exemplo de corte americano" loading="lazy">
+                    <img src="assets/images/Corte-2.jpg" width="245" alt="Segundo exemplo de corte americano" loading="lazy">
+                </div>
+
+                <p><strong>Preço:</strong> R$ 25,00</p>
+            </article>
+        </section>
+
+        <section id="barbeiros">
+            <h2>Conheça o PH</h2>
+
+            <article class="barbeiro">
+                <img
+                    src="./assets/images/barbeiro-ph.jpeg"
+                    width="310"
+                    alt="PH, barbeiro da Gueto Barbearia"
+                    loading="lazy"
+                >
+
+                <div class="barbeiro-informacoes">
+                    <h3>Pedro Henrique — PH</h3>
+
+                    <p>
+                        Aos 21 anos, PH decidiu abrir sua própria barbearia, com foco em jovens negros,
+                        buscando valorizar o estilo e a identidade de cada cliente.
+                    </p>
+
+                    <p><strong>Especialidades:</strong></p>
+
+                    <ul>
+                        <li>Manutenção e penteados em dreads/locs</li>
+                        <li>Cortes de cabelo em degradê</li>
+                    </ul>
+
+                    <a href="#agendamento">Agendar com o PH</a>
+                </div>
+            </article>
+        </section>
+
+        <section id="agendamento">
+            <h2>Agende seu horário</h2>
+            <p>Escolha o serviço, a data e o horário mais conveniente para você.</p>
+
+            <form id="form-agendamento">
+                <div class="campo-formulario">
+                    <label for="servico">Escolha o serviço</label>
+
+                    <select id="servico" name="servico" required>
+                        <option value="" selected disabled>Selecione um serviço</option>
+                        <option value="twist">Twist — R$ 120,00</option>
+                        <option value="barrel-twists">Barrel Twists — R$ 150,00</option>
+                        <option value="corte-americano">Corte americano — R$ 25,00</option>
+                    </select>
+                </div>
+
+                <p>Profissional: <strong>PH</strong></p>
+                <input type="hidden" name="barbeiro" value="ph">
+
+                <div class="campo-formulario">
+                    <label for="data">Escolha a data</label>
+                    <input type="date" id="data" name="data" required>
+                </div>
+
+                <div class="campo-formulario">
+                    <label for="horario">Escolha o horário</label>
+
+                    <select id="horario" name="horario" required disabled>
+                        <option value="" selected>Selecione uma data primeiro</option>
+                    </select>
+                </div>
+                <div class="campo-formulario">
+                    <label for="nome">Seu nome</label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        maxlength="100"
+                        autocomplete="name"
+                        required
+                    >
+                </div>
+
+                <div class="campo-formulario">
+                    <label for="whatsapp">Seu WhatsApp</label>
+
+                    <input
+                        type="tel"
+                        id="whatsapp"
+                        name="whatsapp"
+                        placeholder="(00) 00000-0000"
+                        autocomplete="tel"
+                        aria-describedby="whatsapp-ajuda"
+                        required
+                    >
+
+                    <small id="whatsapp-ajuda">
+                        Usaremos este número para confirmar o agendamento.
+                    </small>
+                </div>
+
+                <button type="submit">Confirmar agendamento</button>
+            </form>
+        </section>
+
+        <section id="contato">
+            <h2>Contato e localização</h2>
+            <p>Entre em Contato Com a Barbearia do Gueto</p>
+
+            <address>
+                <p>
+                    <strong>Whatsapp:</strong>
+                    (24) 99940-5127
+                </p>
+                <p>
+                <strong>Instagram:</strong>
+                <a href="https://www.instagram.com/gueto_barbearia/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >
+                @gueto_barbearia
+            </a>
+            </p>
+
+            </address>
+        </section>
+    </main>
+
+    <footer>
+    <p>
+        &copy; 2026 Gueto Barbearia. Todos os direitos reservados.
+    </p>
+</footer>
+</body>
+</html>
