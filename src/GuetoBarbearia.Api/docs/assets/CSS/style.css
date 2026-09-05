@@ -1,9 +1,25 @@
+ *{
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #101010;
+    min-height: 100vh;
+    font-family: "Inter", Arial, sans-serif;
     color: #F5F1E8;
     line-height: 1.6;
+    background-color: #090909;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.88)),
+        url("../images/GANG-WALL.jpeg");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 img {
@@ -12,104 +28,198 @@ img {
 }
 
 header {
-    background-color: #1C1C1C;
-    padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    gap: 20px;
+    padding: 18px 24px;
+    background-color: rgba(9, 9, 9, 0.94);
+    border-bottom: 2px solid #A83232;
+}
+
+.logo,
+h1,
+h2 {
+    font-family: "UnifrakturCook", "Old English Text MT", serif;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 0.03em;
 }
 
 .logo {
     color: #F5F1E8;
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 2rem;
     text-decoration: none;
+    text-shadow: 2px 2px 0 #7A2020;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 nav a {
     color: #F5F1E8;
+    font-weight: 600;
     text-decoration: none;
+    transition: color 0.2s ease;
 }
 
 nav a:hover {
-    color: #D89A2B;
+    color: #E15A5A;
+}
+
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+section {
+    padding: 48px 20px;
+}
+
+h1,
+h2 {
+    margin-top: 0;
+    color: #F5F1E8;
+    text-shadow: 2px 2px 0 #7A2020, 0 4px 16px rgba(0, 0, 0, 0.8);
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2.25rem;
 }
 
 #inicio {
     text-align: center;
 }
-* {
-    box-sizing: border-box;
-}
 
-main{
-    max-width: 1100px;
-    margin: 0 auto;
-}
-section{
-    padding: 48px 20px;
-}
-.servico{
-    background-color: #1C1C1C;
+.servico {
+    background-color: rgba(12, 12, 12, 0.72);
     padding: 24px;
     margin-bottom: 24px;
-    border: 1px solid #303030;
+    border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
 }
-.servico h3{
-    color:#D89A2B;
+
+.servico h3 {
+    color: #E15A5A;
     margin-top: 0;
 }
-nav{
+
+.servico-imagens {
     display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-.servico-imagens{
-    display: flex;
-    gap: 16px;
     justify-content: center;
     flex-wrap: wrap;
+    gap: 16px;
 }
-.servico-imagens img{
+
+.servico-imagens img {
     border-radius: 8px;
-    border: 1px solid #303030;
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
-.barbeiro{
+
+.barbeiro {
     display: flex;
     align-items: center;
-    gap: 32px;
     flex-wrap: wrap;
-    background-color: #1C1C1C;
+    gap: 32px;
     padding: 24px;
-    border: 1px solid #303030;
+    background-color: rgba(12, 12, 12, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
 }
-.barbeiro img{
+
+.barbeiro img {
     width: 280px;
     border-radius: 12px;
 }
-.barbeiro-informacoes{
-flex: 1;
-min-width: 250px;
+
+.barbeiro-informacoes {
+    flex: 1;
+    min-width: 250px;
 }
-.barbeiro-informacoes h3{
-    color: #D89A2B;
+
+.barbeiro-informacoes h3 {
+    color: #E15A5A;
     margin-top: 0;
 }
-.botao{
+
+.botao {
     display: inline-block;
-    background-color: #D89A2B;
-    color:  #101010;
-    padding: 12px 12px;
-    padding-inline: 20px;
-    border-radius: 8px;
-    font-weight: bold;
+    padding: 12px 20px;
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
     text-decoration: none;
+    background-color: #A83232;
+    border: 0;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
+
 .botao:hover {
-    background-color: #0056b3;
+    background-color: #C84545;
+}
+
+.botao:active {
+    transform: scale(0.98);
+}
+
+.botao:focus-visible,
+nav a:focus-visible {
+    outline: 3px solid #F5F1E8;
+    outline-offset: 4px;
+}
+
+address {
+    font-style: normal;
+}
+
+address a {
+    color: #E15A5A;
+}
+
+footer {
+    padding: 24px;
+    color: #D8D3CA;
+    text-align: center;
+    background-color: rgba(9, 9, 9, 0.94);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+footer p {
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    header,
+    nav {
+        justify-content: center;
     }
+
+    h1 {
+        font-size: 2.4rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    section {
+        padding: 36px 16px;
+    }
+
+    .barbeiro-informacoes {
+        min-width: 100%;
+    }
+}
