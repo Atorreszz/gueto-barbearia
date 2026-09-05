@@ -78,9 +78,8 @@ nav{
 }
 .barbeiro{
     display: flex;
-    justify-content: center;
     align-items: center;
-    margin: 32px;
+    gap: 32px;
     flex-wrap: wrap;
     background-color: #1C1C1C;
     padding: 24px;
@@ -91,3 +90,26 @@ nav{
     width: 280px;
     border-radius: 12px;
 }
+.barbeiro-informacoes{
+flex: 1;
+min-width: 250px;
+}
+.barbeiro-informacoes h3{
+    color: #D89A2B;
+    margin-top: 0;
+}
+.botao{
+    display: inline-block;
+    background-color: #D89A2B;
+    color:  #101010;
+    padding: 12px 12px;
+    padding-inline: 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.botao:hover {
+    background-color: #0056b3;
+    }
