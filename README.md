@@ -197,9 +197,9 @@ Pretendo utilizar uma estrutura organizada, mas sem adicionar várias camadas ap
 - [x] Definir a ideia e o objetivo do projeto.
 - [x] Escolher a stack inicial.
 - [x] Confirmar os requisitos com o proprietário.
-- [ ] Criar os fluxos e wireframes das telas.
-- [ ] Criar o repositório e a estrutura inicial.
-- [ ] Desenvolver a estrutura HTML.
+- [x] Criar os fluxos e wireframes das telas.
+- [x] Criar o repositório e a estrutura inicial.
+- [x] Desenvolver a estrutura HTML.
 - [ ] Criar o design responsivo com CSS.
 - [ ] Montar o fluxo de agendamento com JavaScript e dados simulados.
 - [ ] Aprender SQL e configurar o PostgreSQL.
