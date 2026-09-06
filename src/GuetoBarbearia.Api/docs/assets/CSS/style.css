@@ -49,7 +49,6 @@ header {
     border-bottom: 2px solid var(--cor-principal);
 }
 
-.logo,
 h1,
 h2 {
     font-family: "UnifrakturCook", "Old English Text MT", serif;
@@ -59,10 +58,26 @@ h2 {
 }
 
 .logo {
-    color: var(--cor-texto);
-    font-size: 2rem;
-    text-decoration: none;
-    text-shadow: 2px 2px 0 #7A2020;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 4px 6px;
+    border-radius: 10px;
+    transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.logo img {
+    display: block;
+    width: clamp(135px, 14vw, 175px);
+    height: auto;
+    filter:
+        drop-shadow(0 6px 8px rgba(0, 0, 0, 0.7))
+        drop-shadow(0 0 5px rgba(225, 90, 90, 0.35));
+}
+
+.logo:hover {
+    transform: translateY(-2px) scale(1.035);
+    filter: brightness(1.08);
 }
 
 nav {
@@ -125,6 +140,53 @@ h2 {
 #inicio h1 {
     margin-bottom: 0;
     font-size: clamp(3rem, 8vw, 5.5rem);
+}
+
+.logo-destaque {
+    position: relative;
+    z-index: 0;
+    width: min(100%, 620px);
+    margin: 2px auto;
+}
+
+.logo-destaque::before {
+    content: "";
+    position: absolute;
+    inset: 20% 8%;
+    z-index: -1;
+    background-color: rgba(168, 50, 50, 0.2);
+    border-radius: 50%;
+    filter: blur(34px);
+}
+
+.logo-destaque img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter:
+        drop-shadow(0 18px 18px rgba(0, 0, 0, 0.7))
+        drop-shadow(0 0 9px rgba(225, 90, 90, 0.28));
+    transition: transform 0.3s ease, filter 0.3s ease;
+    animation: entrada-logo 0.75s ease-out both;
+}
+
+.logo-destaque:hover img {
+    transform: translateY(-4px) scale(1.015);
+    filter:
+        drop-shadow(0 22px 20px rgba(0, 0, 0, 0.78))
+        drop-shadow(0 0 12px rgba(225, 90, 90, 0.38));
+}
+
+@keyframes entrada-logo {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .servico {
@@ -224,7 +286,8 @@ h2 {
 }
 
 .botao:focus-visible,
-nav a:focus-visible {
+nav a:focus-visible,
+.logo:focus-visible {
     outline: 3px solid var(--cor-texto);
     outline-offset: 4px;
 }
@@ -367,13 +430,21 @@ footer p {
     .servico,
     .servico-imagens img,
     .botao,
-    nav a {
+    nav a,
+    .logo,
+    .logo-destaque img {
         transition: none;
+    }
+
+    .logo-destaque img {
+        animation: none;
     }
 
     .servico:hover,
     .servico-imagens img:hover,
-    .botao:active {
+    .botao:active,
+    .logo:hover,
+    .logo-destaque:hover img {
         transform: none;
     }
 }
