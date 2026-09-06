@@ -190,7 +190,8 @@ h2 {
 }
 
 .servico {
-    background-color: rgba(12, 12, 12, 0.72);
+    width: 100%;
+    background-color: rgba(10, 10, 10, 0.82);
     padding: 24px;
     margin-bottom: 0;
     border: 1px solid rgba(255, 255, 255, 0.14);
@@ -210,13 +211,30 @@ h2 {
 
 .servico h3 {
     color: var(--cor-destaque);
-    margin-top: 0;
+    margin: 0 0 10px;
+}
+
+.servico > p:first-of-type {
+    margin: 0 0 18px;
+    color: var(--cor-texto-secundario);
+}
+
+.servico > p:last-child {
+    margin: 18px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .servico-imagens {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
+}
+
+.servico-imagens img:only-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - 6px);
 }
 
 .servico-imagens img {
@@ -356,13 +374,50 @@ footer p {
 }
 .lista-servicos {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: 24px;
+}
+
+.coluna-servicos {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
     gap: 24px;
 }
 
 @media (max-width: 900px) {
     .lista-servicos {
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .coluna-servicos {
+        display: contents;
+    }
+
+    .servico-starter {
+        order: 1;
+    }
+
+    .servico-twist {
+        order: 2;
+    }
+
+    .servico-barrel {
+        order: 3;
+    }
+
+    .servico-corte {
+        order: 4;
+    }
+
+    .servico-imagens {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    }
+
+    .servico-imagens img:only-child {
+        width: min(100%, 170px);
     }
 }
 
@@ -384,10 +439,6 @@ footer p {
         min-width: 100%;
     }
 
-    .lista-servicos {
-        grid-template-columns: 1fr;
-    }
-    
     body {
         background-attachment: scroll;
     }
@@ -413,12 +464,6 @@ footer p {
     #form-agendamento .botao {
         width: 100%;
         text-align: center;
-    }
-}
-
-@media (max-width: 420px) {
-    .servico-imagens {
-        grid-template-columns: 1fr;
     }
 }
 
