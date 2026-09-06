@@ -1,5 +1,16 @@
- *{
+* {
     box-sizing: border-box;
+}
+
+:root {
+    --cor-fundo: #090909;
+    --cor-texto: #F5F1E8;
+    --cor-destaque: #E15A5A;
+    --cor-principal: #A83232;
+    --cor-principal-hover: #C84545;
+    --cor-texto-secundario: #D8D3CA;
+    --cor-campo: #151515;
+    --cor-borda-campo: #4A4A4A;
 }
 
 html {
@@ -10,9 +21,9 @@ body {
     margin: 0;
     min-height: 100vh;
     font-family: "Inter", Arial, sans-serif;
-    color: #F5F1E8;
+    color: var(--cor-texto);
     line-height: 1.6;
-    background-color: #090909;
+    background-color: var(--cor-fundo);
     background-image:
         linear-gradient(rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.88)),
         url("../images/GANG-WALL.jpeg");
@@ -35,7 +46,7 @@ header {
     gap: 20px;
     padding: 18px 24px;
     background-color: rgba(9, 9, 9, 0.94);
-    border-bottom: 2px solid #A83232;
+    border-bottom: 2px solid var(--cor-principal);
 }
 
 .logo,
@@ -48,7 +59,7 @@ h2 {
 }
 
 .logo {
-    color: #F5F1E8;
+    color: var(--cor-texto);
     font-size: 2rem;
     text-decoration: none;
     text-shadow: 2px 2px 0 #7A2020;
@@ -61,14 +72,14 @@ nav {
 }
 
 nav a {
-    color: #F5F1E8;
+    color: var(--cor-texto);
     font-weight: 600;
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 nav a:hover {
-    color: #E15A5A;
+    color: var(--cor-destaque);
 }
 
 main {
@@ -83,7 +94,7 @@ section {
 h1,
 h2 {
     margin-top: 0;
-    color: #F5F1E8;
+    color: var(--cor-texto);
     text-shadow: 2px 2px 0 #7A2020, 0 4px 16px rgba(0, 0, 0, 0.8);
 }
 
@@ -96,20 +107,37 @@ h2 {
 }
 
 #inicio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    min-height: 70vh;
     text-align: center;
+}
+#inicio p {
+    max-width: 650px;
+    margin: 0;
+    color: var(--cor-texto-secundario);
+    font-size: 1.1rem;
+}
+#inicio h1 {
+    margin-bottom: 0;
+    font-size: clamp(3rem, 8vw, 5.5rem);
 }
 
 .servico {
     background-color: rgba(12, 12, 12, 0.72);
     padding: 24px;
-    margin-bottom: 24px;
+    margin-bottom: 0;
     border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 12px;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
 }
 
 .servico h3 {
-    color: #E15A5A;
+    color: var(--cor-destaque);
     margin-top: 0;
 }
 
@@ -148,7 +176,7 @@ h2 {
 }
 
 .barbeiro-informacoes h3 {
-    color: #E15A5A;
+    color: var(--cor-destaque);
     margin-top: 0;
 }
 
@@ -160,7 +188,7 @@ h2 {
     font-size: 1rem;
     font-weight: 700;
     text-decoration: none;
-    background-color: #A83232;
+    background-color: var(--cor-principal);
     border: 0;
     border-radius: 8px;
     cursor: pointer;
@@ -168,7 +196,7 @@ h2 {
 }
 
 .botao:hover {
-    background-color: #C84545;
+    background-color: var(--cor-principal-hover);
 }
 
 .botao:active {
@@ -177,7 +205,7 @@ h2 {
 
 .botao:focus-visible,
 nav a:focus-visible {
-    outline: 3px solid #F5F1E8;
+    outline: 3px solid var(--cor-texto);
     outline-offset: 4px;
 }
 
@@ -186,12 +214,12 @@ address {
 }
 
 address a {
-    color: #E15A5A;
+    color: var(--cor-destaque);
 }
 
 footer {
     padding: 24px;
-    color: #D8D3CA;
+    color: var(--cor-texto-secundario);
     text-align: center;
     background-color: rgba(9, 9, 9, 0.94);
     border-top: 1px solid rgba(255, 255, 255, 0.12);
@@ -201,14 +229,64 @@ footer p {
     margin: 0;
 }
 
+#form-agendamento {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 24px;
+    background-color: rgba(12, 12, 12, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+}
+.campo-formulario {
+    margin-bottom: 18px;
+}
+.campo-formulario label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+.campo-formulario input,
+.campo-formulario select {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--cor-campo);
+    color: var(--cor-texto);
+    border: 1px solid var(--cor-borda-campo);
+    border-radius: 8px;
+    font-family: inherit;
+}
+.campo-formulario input:focus,
+.campo-formulario select:focus {
+    border-color: var(--cor-destaque);
+    outline: 2px solid var(--cor-destaque);
+    outline-offset: 2px;
+}
+.campo-formulario small {
+    display: block;
+    color: var(--cor-texto-secundario);
+    margin-top: 6px;
+}
+.campo-formulario select:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+.lista-servicos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+@media (max-width: 900px) {
+    .lista-servicos {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 600px) {
     header,
     nav {
         justify-content: center;
-    }
-
-    h1 {
-        font-size: 2.4rem;
     }
 
     h2 {
@@ -221,5 +299,9 @@ footer p {
 
     .barbeiro-informacoes {
         min-width: 100%;
+    }
+
+    .lista-servicos {
+        grid-template-columns: 1fr;
     }
 }
