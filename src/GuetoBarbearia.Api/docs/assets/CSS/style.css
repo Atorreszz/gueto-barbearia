@@ -134,6 +134,16 @@ h2 {
     border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 12px;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.servico:hover {
+    transform: translateY(-6px);
+    border-color: var(--cor-destaque);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.45);
 }
 
 .servico h3 {
@@ -142,15 +152,25 @@ h2 {
 }
 
 .servico-imagens {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
 }
 
 .servico-imagens img {
+    object-position: center;
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
     border-radius: 8px;
     border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.servico-imagens img:hover {
+    transform: scale(1.03);
+    filter: brightness(1.08);
 }
 
 .barbeiro {
@@ -284,9 +304,9 @@ footer p {
 }
 
 @media (max-width: 600px) {
-    header,
     nav {
         justify-content: center;
+        gap: 8px 14px;
     }
 
     h2 {
@@ -303,5 +323,57 @@ footer p {
 
     .lista-servicos {
         grid-template-columns: 1fr;
+    }
+    
+    body {
+        background-attachment: scroll;
+    }
+
+    header {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+    }
+
+    nav a {
+        padding: 6px 4px;
+    }
+
+    .barbeiro {
+        justify-content: center;
+    }
+
+    #form-agendamento {
+        padding: 20px;
+    }
+
+    #form-agendamento .botao {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 420px) {
+    .servico-imagens {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .servico,
+    .servico-imagens img,
+    .botao,
+    nav a {
+        transition: none;
+    }
+
+    .servico:hover,
+    .servico-imagens img:hover,
+    .botao:active {
+        transform: none;
     }
 }
