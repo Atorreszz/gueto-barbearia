@@ -34,6 +34,20 @@ const servicos = [
         duracaoMinutos: 150
     }
 ];
-console.table(servicos);
-console.log(servicos[0].nome);
-console.log(servicos[1].preco);
+const campoServico = document.querySelector("#servico");
+
+servicos.forEach(servico => {
+    const elemento = document.createElement("option");
+    elemento.value = servico.id;
+    elemento.textContent = servico.nome;
+    camposervico.appendChild(elemento);
+});
+
+
+campoServico.addEventListener("change", () => {
+    console.log(campoServico.value);
+});
+campoServico.value = "twist";
+const produtoencontrado = servicos.find((servico) =>{
+    return servico.id === campoServico;
+})
