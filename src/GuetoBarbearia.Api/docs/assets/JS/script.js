@@ -1,5 +1,6 @@
 const campoData = document.querySelector("#data");
 const campoHorario = document.querySelector("#horario");
+const resumoServico = document.querySelector("#resumo-servico");
 
 const hoje = new Date();
 
@@ -40,14 +41,19 @@ servicos.forEach(servico => {
     const elemento = document.createElement("option");
     elemento.value = servico.id;
     elemento.textContent = servico.nome;
-    camposervico.appendChild(elemento);
+    campoServico.appendChild(elemento);
 });
 
 
 campoServico.addEventListener("change", () => {
-    console.log(campoServico.value);
+    const produtoEncontrado = servicos.find((servico) => {
+        return servico.id === campoServico.value;
+    });
+    const precoFormatado = produtoEncontrado.preco.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    })
+
+    resumoServico.textContent = `Serviço selecionado: ${produtoEncontrado.nome}. Preço:${precoFormatado}. Duração: ${produtoEncontrado.duracaoMinutos} minutos.`;
 });
-campoServico.value = "twist";
-const produtoencontrado = servicos.find((servico) =>{
-    return servico.id === campoServico;
-})
+
