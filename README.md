@@ -200,7 +200,7 @@ Pretendo utilizar uma estrutura organizada, mas sem adicionar várias camadas ap
 - [x] Criar os fluxos e wireframes das telas.
 - [x] Criar o repositório e a estrutura inicial.
 - [x] Desenvolver a estrutura HTML.
-- [ ] Criar o design responsivo com CSS.
+- [x] Criar o design responsivo com CSS.
 - [ ] Montar o fluxo de agendamento com JavaScript e dados simulados.
 - [ ] Aprender SQL e configurar o PostgreSQL.
 - [ ] Criar a API com ASP.NET Core.
