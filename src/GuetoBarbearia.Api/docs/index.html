@@ -221,13 +221,14 @@
                 </div>
 
                 <div class="campo-formulario">
-                    <label for="horario">Escolha o horário</label>
+            <label for="horario">Escolha o horário</label>
 
-                    <select id="horario" name="horario" required disabled>
-                        <option value="" selected>Selecione uma data primeiro</option>
-                    </select>
-
+            <select id="horario" name="horario" required disabled>
+                <option value="" selected disabled>Selecione um horário</option>
+            </select>
                 </div>
+
+                
                 <div class="campo-formulario">
                     <label for="nome">Seu nome</label>
 
@@ -240,6 +241,7 @@
                         required
                     >
                 </div>
+                <small id="erro-nome" aria-live="polite"></small>
 
                 <div class="campo-formulario">
                     <label for="whatsapp">Seu WhatsApp</label>
@@ -258,6 +260,8 @@
                         Usaremos este número para confirmar o agendamento.
                     </small>
                 </div>
+
+                <small id="erro-whatsapp" aria-live="polite"></small>
 
                 <button type="submit" class="botao">Confirmar agendamento</button>
             </form>
