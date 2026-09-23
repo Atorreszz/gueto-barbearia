@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GuetoBarbearia.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+81fc55ec0429cc7bcccd5b8ade8b3e169dca02b0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+65db164d477f0c426a5eec32d7457b3e844f62a1")]
 [assembly: System.Reflection.AssemblyProductAttribute("GuetoBarbearia.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GuetoBarbearia.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

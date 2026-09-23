@@ -1,6 +1,8 @@
 using GuetoBarbearia.Api;
+using GuetoBarbearia.Api.models;
 
 List<Servico> servicos = new List<Servico>();
+List<Agendamento> agendamentos = new List <Agendamento>();
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -42,6 +44,22 @@ app.MapGet("/api/servicos/{id}", (string id) =>
         return Results.NotFound();
     }
     return Results.Ok(servicoEncontrado);
+});
+app.MapPost("/api/agendamentos", (Agendamento novoAgendamento) =>
+{
+    novoAgendamento.Id = agendamentos.Count + 1;
+
+    agendamentos.Add(novoAgendamento);
+
+    return Results.Created(
+        $"/api/agendamentos/{novoAgendamento.Id}",
+        novoAgendamento
+    );
+});
+app.MapGet("/api/agendamentos", () =>
+{
+    return Results.Ok(agendamentos);
+
 });
 
 app.Run();
