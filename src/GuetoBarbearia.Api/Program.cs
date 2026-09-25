@@ -34,7 +34,7 @@ barrel.DuracaoMinutos = 150;
 servicos.Add(twist);
 servicos.Add(barrel);
 
-app.MapGet("/api/Servicos", () => servicos);
+app.MapGet("/api/servicos", () => servicos);
 
 app.MapGet("/api/servicos/{id}", (string id) =>
 {
@@ -47,10 +47,35 @@ app.MapGet("/api/servicos/{id}", (string id) =>
 });
 app.MapPost("/api/agendamentos", (Agendamento novoAgendamento) =>
 {
+    Servico? servicoEncontrado = servicos.Find(servico => servico.Id == novoAgendamento.ServicoId);
+    
+    if(servicoEncontrado == null)
+    {
+        return Results.BadRequest("Servico Não Encontrado");
+    }
+
+    DateOnly hoje = DateOnly.FromDateTime(DateTime.Today);
+
+    if(novoAgendamento.Data < hoje)
+    {
+        return Results.BadRequest("Não é possível agendar para uma data passada");
+    }
+
+    bool horarioOcupado = agendamentos.Any(agendamento =>
+        agendamento.Data == novoAgendamento.Data && agendamento.Horario == novoAgendamento.Horario);
+
+    if (horarioOcupado)
+    {
+        return Results.Conflict("Esse horário já está ocupado");
+    }
+
+    
+
+    
     novoAgendamento.Id = agendamentos.Count + 1;
 
     agendamentos.Add(novoAgendamento);
-
+    
     return Results.Created(
         $"/api/agendamentos/{novoAgendamento.Id}",
         novoAgendamento
@@ -60,6 +85,34 @@ app.MapGet("/api/agendamentos", () =>
 {
     return Results.Ok(agendamentos);
 
+});
+
+app.MapGet("/api/agendamentos/{id}", (int id) =>
+{
+    Agendamento? agendamentoEncontrado = agendamentos.Find(agendamento => agendamento.Id == id);
+
+    if (agendamentoEncontrado == null)
+    {
+        return Results.NotFound("Agendamento Não Encontrado");
+    }
+
+    return Results.Ok(agendamentoEncontrado);
+});
+
+app.MapDelete("/api/agendamentos/{id}", (int id) =>
+{
+    Agendamento? agendamentoEncontrado = agendamentos.Find(agendamento => agendamento.Id == id);
+
+    if (agendamentoEncontrado == null)
+    {
+        return Results.NotFound("Serviço Não Encontrado");
+    }
+
+    else
+    {
+        agendamentos.Remove(agendamentoEncontrado);
+        return Results.NoContent();
+    }
 });
 
 app.Run();
