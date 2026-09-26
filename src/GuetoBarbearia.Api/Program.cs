@@ -105,7 +105,7 @@ app.MapDelete("/api/agendamentos/{id}", (int id) =>
 
     if (agendamentoEncontrado == null)
     {
-        return Results.NotFound("Serviço Não Encontrado");
+        return Results.NotFound("Agendamento Não Encontrado");
     }
 
     else
@@ -114,5 +114,50 @@ app.MapDelete("/api/agendamentos/{id}", (int id) =>
         return Results.NoContent();
     }
 });
+
+app.MapPut("/api/agendamentos/{id}", (int id, Agendamento agendamentoAtualizado) =>
+{
+    Agendamento? agendamentoEncontrado = agendamentos.Find(agendamento => agendamento.Id == id);
+
+    if (agendamentoEncontrado == null)
+    {
+        return Results.NotFound("Agendamento Não Encontrado");
+    }
+
+    Servico? servicoEncontrado = servicos.Find(servico => servico.Id == agendamentoAtualizado.ServicoId);
+
+    if (servicoEncontrado == null)
+    {
+        return Results.BadRequest("Serviço não Encontrado");
+    }
+    
+
+    DateOnly hoje = DateOnly.FromDateTime(DateTime.Today);
+
+    if (agendamentoAtualizado.Data < hoje)
+    {
+        return Results.BadRequest("Não é possivel Atualizar uma Data que ja Passou");
+    }
+    
+    bool horarioOcupado = agendamentos.Any(agendamento =>
+        agendamento.Data == agendamentoAtualizado.Data 
+        && agendamento.Horario == agendamentoAtualizado.Horario 
+        && agendamento.Id != id);
+
+    if (horarioOcupado)
+    {
+        return Results.Conflict("Esse Horario Ja Esta Ocupado");
+    }
+    
+    agendamentoEncontrado.ServicoId = agendamentoAtualizado.ServicoId;
+    agendamentoEncontrado.Data = agendamentoAtualizado.Data;
+    agendamentoEncontrado.Horario = agendamentoAtualizado.Horario;
+
+    
+    
+    
+    return Results.Ok(agendamentoEncontrado);
+});
+
 
 app.Run();
