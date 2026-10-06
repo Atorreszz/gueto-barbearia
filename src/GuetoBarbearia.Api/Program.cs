@@ -1,12 +1,17 @@
 using GuetoBarbearia.Api;
+using GuetoBarbearia.Api.Data;
 using GuetoBarbearia.Api.models;
+
 
 List<Servico> servicos = new List<Servico>();
 List<Agendamento> agendamentos = new List <Agendamento>();
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddNpgsql<GuetoDbContext>(ConnectionString);
 var app = builder.Build();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -161,3 +166,5 @@ app.MapPut("/api/agendamentos/{id}", (int id, Agendamento agendamentoAtualizado)
 
 
 app.Run();
+
+

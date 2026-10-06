@@ -10,7 +10,7 @@ public class GuetoDbContext : DbContext
     {
         
     }
-    public DbSet<Servico> Servicos;
-    public DbSet<Agendamento> Agendamentos;
+    public DbSet<Servico> Servicos => Set<Servico>();
+    public DbSet<Agendamento> Agendamentos  => Set<Agendamento>();
         
 }
