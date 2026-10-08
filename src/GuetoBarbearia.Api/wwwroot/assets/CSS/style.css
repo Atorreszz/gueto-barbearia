@@ -11,6 +11,9 @@
     --cor-texto-secundario: #D8D3CA;
     --cor-campo: #151515;
     --cor-borda-campo: #4A4A4A;
+    --cor-temaclaro-fundo: #F5F5F5;
+    --cor-temaclaro-texto: #1A1A1A;
+    --cor-temaclaro-borda: #D4D4D4;
 }
 
 html {
@@ -47,6 +50,11 @@ header {
     padding: 18px 24px;
     background-color: rgba(9, 9, 9, 0.94);
     border-bottom: 2px solid var(--cor-principal);
+}
+
+header .Temas{
+    
+    
 }
 
 h1,
