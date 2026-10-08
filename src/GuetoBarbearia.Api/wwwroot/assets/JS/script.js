@@ -10,6 +10,22 @@ const erroWhatsapp = document.querySelector("#erro-whatsapp");
 const resumoAgendamento = document.querySelector("#resumo-agendamento");
 const erroData = document.querySelector("#erro-data");
 const erroHorario = document.querySelector("#erro-horario");
+const Temas = document.querySelector("#Temas");
+const Tema = document.documentElement
+const botaoTema = document.getElementById("botao-tema");
+
+
+document.getElementById("botao-tema").addEventListener("click", () =>{
+    let Temaatual = Tema.getAttribute("data-tema");
+    if(Temaatual === "escuro"){
+        Tema.setAttribute("data-tema", "claro");
+        botaoTema.textContent = "Ativar Modo Escuro";
+    }
+    else{
+        Tema.setAttribute("data-tema", "escuro");
+        botaoTema.textContent = "Ativar Modo Claro";
+    }
+} )
 
 function obterDataAtual() {
     const hoje = new Date();
