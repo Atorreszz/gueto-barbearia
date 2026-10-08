@@ -11,6 +11,7 @@ const resumoAgendamento = document.querySelector("#resumo-agendamento");
 const erroData = document.querySelector("#erro-data");
 const erroHorario = document.querySelector("#erro-horario");
 
+
 function obterDataAtual() {
     const hoje = new Date();
 
