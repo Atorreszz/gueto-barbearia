@@ -27,6 +27,7 @@ document.getElementById("botao-tema").addEventListener("click", () =>{
     }
 } )
 
+
 function obterDataAtual() {
     const hoje = new Date();
 
