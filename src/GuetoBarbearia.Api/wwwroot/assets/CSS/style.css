@@ -2,7 +2,9 @@
     box-sizing: border-box;
 }
 
+
 :root {
+    color-scheme: dark;
     --cor-fundo: #090909;
     --cor-texto: #F5F1E8;
     --cor-destaque: #E15A5A;
@@ -10,10 +12,36 @@
     --cor-principal-hover: #C84545;
     --cor-texto-secundario: #D8D3CA;
     --cor-campo: #151515;
-    --cor-borda-campo: #4A4A4A;
-    --cor-temaclaro-fundo: #F5F5F5;
-    --cor-temaclaro-texto: #1A1A1A;
-    --cor-temaclaro-borda: #D4D4D4;
+    --cor-borda-campo: #686868;
+    --cor-superficie: rgba(12, 12, 12, 0.82);
+    --cor-cabecalho: rgba(9, 9, 9, 0.94);
+    --cor-borda: rgba(255, 255, 255, 0.14);
+    --cor-borda-imagem: rgba(255, 255, 255, 0.18);
+    --sombra-titulo: 2px 2px 0 #7A2020, 0 4px 16px rgba(0, 0, 0, 0.8);
+    --sombra-card: 0 12px 32px rgba(0, 0, 0, 0.28);
+    --sombra-card-hover: 0 18px 42px rgba(0, 0, 0, 0.45);
+    --sombra-resumo: 0 10px 24px rgba(0, 0, 0, 0.24);
+    --sombra-botao-tema: 0 3px 8px rgba(122, 32, 32, 0.28);
+}
+
+
+html[data-tema="claro"] {
+    color-scheme: light;
+    --cor-fundo: #F5F5F5;
+    --cor-texto: #1A1A1A;
+    --cor-texto-secundario: #595959;
+    --cor-campo: #FFFFFF;
+    --cor-borda-campo: #8A8A8A;
+    --cor-destaque: #A83232;
+    --cor-superficie: #FFFFFF;
+    --cor-cabecalho: #FFFFFF;
+    --cor-borda: #D4D4D4;
+    --cor-borda-imagem: #D4D4D4;
+    --sombra-titulo: none;
+    --sombra-card: 0 12px 32px rgba(0, 0, 0, 0.07);
+    --sombra-card-hover: 0 18px 42px rgba(0, 0, 0, 0.12);
+    --sombra-resumo: 0 10px 24px rgba(0, 0, 0, 0.06);
+    --sombra-botao-tema: 0 3px 8px rgba(122, 32, 32, 0.12);
 }
 
 html {
@@ -28,12 +56,22 @@ body {
     line-height: 1.6;
     background-color: var(--cor-fundo);
     background-image:
-        linear-gradient(rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.88)),
-        url("../images/GANG-WALL.jpeg");
+            linear-gradient(rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.88)),
+            url("../images/GANG-WALL.jpeg");
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
     background-attachment: fixed;
+}
+
+
+html[data-tema="claro"] body {
+    background-image:
+            linear-gradient(
+                    rgba(245, 245, 245, 0.72),
+                    rgba(245, 245, 245, 0.88)
+            ),
+            url("../images/Cena-urbana-diurna-em-grafite-claro.png");
 }
 
 img {
@@ -48,13 +86,36 @@ header {
     flex-wrap: wrap;
     gap: 20px;
     padding: 18px 24px;
-    background-color: rgba(9, 9, 9, 0.94);
+    background-color: var(--cor-cabecalho);
     border-bottom: 2px solid var(--cor-principal);
 }
 
-header .Temas{
-    
-    
+header .Temas {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 12px 14px;
+    color: var(--cor-texto);
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-principal);
+    border-radius: 15px;
+    box-shadow: var(--sombra-botao-tema);
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+header .Temas:hover {
+    background-color: var(--cor-campo);
+    border-color: var(--cor-destaque);
+}
+
+header .Temas:active {
+    transform: scale(0.98);
 }
 
 h1,
@@ -63,6 +124,9 @@ h2 {
     font-weight: 700;
     line-height: 1.1;
     letter-spacing: 0.03em;
+    margin-top: 0;
+    color: var(--cor-texto);
+    text-shadow: var(--sombra-titulo);
 }
 
 .logo {
@@ -70,6 +134,11 @@ h2 {
     align-items: center;
     flex-shrink: 0;
     padding: 4px 6px;
+    color: var(--cor-texto);
+    font-family: "UnifrakturCook", "Old English Text MT", serif;
+    font-size: clamp(1.5rem, 3vw, 1.85rem);
+    line-height: 1.2;
+    text-decoration: none;
     border-radius: 10px;
     transition: transform 0.25s ease, filter 0.25s ease;
 }
@@ -79,8 +148,8 @@ h2 {
     width: clamp(135px, 14vw, 175px);
     height: auto;
     filter:
-        drop-shadow(0 6px 8px rgba(0, 0, 0, 0.7))
-        drop-shadow(0 0 5px rgba(225, 90, 90, 0.35));
+            drop-shadow(0 6px 8px rgba(0, 0, 0, 0.7))
+            drop-shadow(0 0 5px rgba(225, 90, 90, 0.35));
 }
 
 .logo:hover {
@@ -90,6 +159,7 @@ h2 {
 
 nav {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     gap: 20px;
 }
@@ -112,13 +182,6 @@ main {
 
 section {
     padding: 48px 20px;
-}
-
-h1,
-h2 {
-    margin-top: 0;
-    color: var(--cor-texto);
-    text-shadow: 2px 2px 0 #7A2020, 0 4px 16px rgba(0, 0, 0, 0.8);
 }
 
 h1 {
@@ -172,8 +235,8 @@ h2 {
     width: 100%;
     height: auto;
     filter:
-        drop-shadow(0 18px 18px rgba(0, 0, 0, 0.7))
-        drop-shadow(0 0 9px rgba(225, 90, 90, 0.28));
+            drop-shadow(0 18px 18px rgba(0, 0, 0, 0.7))
+            drop-shadow(0 0 9px rgba(225, 90, 90, 0.28));
     transition: transform 0.3s ease, filter 0.3s ease;
     animation: entrada-logo 0.75s ease-out both;
 }
@@ -181,8 +244,8 @@ h2 {
 .logo-destaque:hover img {
     transform: translateY(-4px) scale(1.015);
     filter:
-        drop-shadow(0 22px 20px rgba(0, 0, 0, 0.78))
-        drop-shadow(0 0 12px rgba(225, 90, 90, 0.38));
+            drop-shadow(0 22px 20px rgba(0, 0, 0, 0.78))
+            drop-shadow(0 0 12px rgba(225, 90, 90, 0.38));
 }
 
 @keyframes entrada-logo {
@@ -199,22 +262,22 @@ h2 {
 
 .servico {
     width: 100%;
-    background-color: rgba(10, 10, 10, 0.82);
+    background-color: var(--cor-superficie);
     padding: 24px;
     margin-bottom: 0;
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    border: 1px solid var(--cor-borda);
     border-radius: 12px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    box-shadow: var(--sombra-card);
     transition:
-        transform 0.25s ease,
-        border-color 0.25s ease,
-        box-shadow 0.25s ease;
+            transform 0.25s ease,
+            border-color 0.25s ease,
+            box-shadow 0.25s ease;
 }
 
 .servico:hover {
     transform: translateY(-6px);
     border-color: var(--cor-destaque);
-    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.45);
+    box-shadow: var(--sombra-card-hover);
 }
 
 .servico h3 {
@@ -230,7 +293,7 @@ h2 {
 .servico > p:last-child {
     margin: 18px 0 0;
     padding-top: 14px;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 1px solid var(--cor-borda);
 }
 
 .servico-imagens {
@@ -252,7 +315,7 @@ h2 {
     aspect-ratio: 4 / 5;
     object-fit: cover;
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid var(--cor-borda-imagem);
     transition: transform 0.25s ease, filter 0.25s ease;
 }
 
@@ -267,10 +330,10 @@ h2 {
     flex-wrap: wrap;
     gap: 32px;
     padding: 24px;
-    background-color: rgba(12, 12, 12, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
     border-radius: 12px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    box-shadow: var(--sombra-card);
 }
 
 .barbeiro img {
@@ -312,6 +375,7 @@ h2 {
 }
 
 .botao:focus-visible,
+.Temas:focus-visible,
 nav a:focus-visible,
 .logo:focus-visible {
     outline: 3px solid var(--cor-texto);
@@ -330,8 +394,8 @@ footer {
     padding: 24px;
     color: var(--cor-texto-secundario);
     text-align: center;
-    background-color: rgba(9, 9, 9, 0.94);
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    background-color: var(--cor-cabecalho);
+    border-top: 1px solid var(--cor-borda);
 }
 
 footer p {
@@ -342,11 +406,15 @@ footer p {
     max-width: 650px;
     margin: 0 auto;
     padding: 24px;
-    background-color: rgba(12, 12, 12, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
     border-radius: 12px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    box-shadow: var(--sombra-card);
 }
+#form-agendamento .botao + .botao {
+    margin-left: 8px;
+}
+
 .campo-formulario {
     margin-bottom: 18px;
 }
@@ -365,6 +433,10 @@ footer p {
     border-radius: 8px;
     font-family: inherit;
 }
+.campo-formulario input::placeholder {
+    color: var(--cor-texto-secundario);
+    opacity: 1;
+}
 .campo-formulario input:focus,
 .campo-formulario select:focus {
     border-color: var(--cor-destaque);
@@ -380,6 +452,23 @@ footer p {
     cursor: not-allowed;
     opacity: 0.6;
 }
+#erro-data,
+#erro-horario,
+#erro-nome,
+#erro-whatsapp {
+    display: block;
+    margin-top: 6px;
+    color: var(--cor-destaque);
+    font-size: 0.875rem;
+}
+
+#erro-data:empty,
+#erro-horario:empty,
+#erro-nome:empty,
+#erro-whatsapp:empty {
+    display: none;
+}
+
 .lista-servicos {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -394,18 +483,17 @@ footer p {
     gap: 24px;
 }
 
-
 /* Resumo mostrado depois que o agendamento é validado */
 .resumo-agendamento {
     width: min(100%, 650px);
     margin: 22px auto 0;
     padding: 18px 20px;
     font-family: "Poppins", "Inter", Arial, sans-serif;
-    background-color: rgba(12, 12, 12, 0.88);
-    border: 1px solid rgba(225, 90, 90, 0.35);
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
     border-left: 4px solid var(--cor-destaque);
     border-radius: 10px;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+    box-shadow: var(--sombra-resumo);
 }
 
 .resumo-agendamento:empty {
@@ -515,6 +603,11 @@ footer p {
         text-align: center;
     }
 
+    #form-agendamento .botao + .botao {
+        margin-top: 10px;
+        margin-left: 0;
+    }
+
     .resumo-agendamento {
         margin-top: 18px;
         padding: 16px;
@@ -533,6 +626,7 @@ footer p {
     .servico,
     .servico-imagens img,
     .botao,
+    .Temas,
     nav a,
     .logo,
     .logo-destaque img {
@@ -546,9 +640,9 @@ footer p {
     .servico:hover,
     .servico-imagens img:hover,
     .botao:active,
+    .Temas:active,
     .logo:hover,
     .logo-destaque:hover img {
         transform: none;
     }
 }
-

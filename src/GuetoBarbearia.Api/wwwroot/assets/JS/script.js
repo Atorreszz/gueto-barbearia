@@ -28,6 +28,7 @@ document.getElementById("botao-tema").addEventListener("click", () =>{
 } )
 
 
+
 function obterDataAtual() {
     const hoje = new Date();
 
@@ -66,6 +67,8 @@ const servicos = [
         duracaoMinutos: 110
     }
 ];
+
+
 
 const horariosExemplos = [
     "09:00",
