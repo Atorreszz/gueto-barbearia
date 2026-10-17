@@ -82,6 +82,7 @@ function buscarServico(idServico) {
     });
 }
 
+
 function formatarData(data) {
     const [
         anoAgendamento,

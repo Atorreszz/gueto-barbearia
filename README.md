@@ -202,14 +202,15 @@ Pretendo utilizar uma estrutura organizada, mas sem adicionar várias camadas ap
 - [x] Desenvolver a estrutura HTML.
 - [x] Criar o design responsivo com CSS.
 - [x] Montar o fluxo de agendamento com JavaScript e dados simulados.
-- [ ] Aprender SQL e configurar o PostgreSQL.
+- [x] Aprender SQL e configurar o PostgreSQL.
 - [x] Criar a API com ASP.NET Core.
-- [ ] Integrar o Entity Framework Core.
+- [x] Integrar o Entity Framework Core.
 - [ ] Desenvolver as regras de disponibilidade.
 - [ ] Conectar o front-end com a API.
 - [ ] Criar o painel administrativo.
 - [ ] Implementar autenticação.
 - [ ] Criar testes para as regras críticas.
+- [ ] Criar Login.
 - [ ] Publicar o sistema.
 - [ ] Adicionar screenshots e documentação final.
 
