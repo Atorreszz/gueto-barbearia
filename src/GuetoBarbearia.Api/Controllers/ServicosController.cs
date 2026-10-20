@@ -15,67 +15,60 @@ namespace GuetoBarbearia.Api.Controllers
     [ApiController]
     public class ServicosController : ControllerBase
     {
-        private IServicos servicosServices;
+        private readonly IServicos servicosServices;
 
         public ServicosController(IServicos servicos)
         {
             this.servicosServices = servicos;
         }
-        
-        private static List<Servico> servicos = new List<Servico>()
-            {
-                new Servico() {Id = 1, Nome = "Twist", DuracaoMinutos = 140, Preco = 120m} 
-            };
-        
-            [HttpGet]
-            public ActionResult<List<Servico>> Get()
-            {
-                
-            return Ok(servicosServices.ObterTodos());
+
+        [HttpGet]
+        public async Task<ActionResult<List<Servico>>> Get()
+        {
+            var servicos = await servicosServices.ObterTodos();
+            return Ok(servicos);
         }
-            [HttpGet("{id}")]
-            public ActionResult<Servico> Get(int id)
-            {
-                var servico = servicosServices.ObterPorId(id);
-                if (servico is null)
-                {
-                    return NotFound($"Servico Com Id {id} não Encontrado");
-                }
-                return Ok(servico);
-            }
 
-            [HttpPost]
-            public ActionResult<Servico> Post(Servico novoServico)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Servico>> Get(int id)
+        {
+            var servico = await servicosServices.ObterPorId(id);
+            if (servico is null)
             {
-               servicosServices.Adicionar(novoServico);
-                return Created();
+                return NotFound($"Servico Com Id {id} não Encontrado");
             }
+            return Ok(servico);
+        }
 
-            [HttpPut("{id}")]
-            public ActionResult<Servico> Put(int id, Servico servicoAtualizado)
-            {
-                var servico = servicosServices.Atualizar(id, servicoAtualizado);
-                if (servico is null)
-                {
-                    return NotFound($"Servico com ID {id} Não Encontrado");
-                }
-               
-                
-                return Ok(servico);
-                
-            }
+        [HttpPost]
+        public async Task<ActionResult<Servico>> Post(Servico novoServico)
+        {
+            var servicoCriado = await servicosServices.Adicionar(novoServico);
+            return CreatedAtAction(nameof(Get), new { id = servicoCriado.Id }, servicoCriado);
+        }
 
-            [HttpDelete("{id}")]
-            public ActionResult<Servico> Delete(int id)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Servico>> Put(int id, Servico servicoAtualizado)
+        {
+            var servico = await servicosServices.Atualizar(id, servicoAtualizado);
+            if (servico is null)
             {
-                var deletou = servicosServices.Remover(id);
-                var servico = servicos.FirstOrDefault(x => x.Id == id);
-                if (deletou == false)
-                {
-                    return NotFound($"Servico com ID {id} Não Encontrado");
-                }
-                
-                return NoContent();
+                return NotFound($"Servico com ID {id} Não Encontrado");
             }
+   
+            return Ok(servico);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var deletou =  await servicosServices.Remover(id);
+            if (!deletou)
+            {
+                return NotFound($"Servico com ID {id} Não Encontrado");
+            }
+            
+            return NoContent();
+        }
     }
 }

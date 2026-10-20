@@ -425,3 +425,21 @@ formularioAgendamento.addEventListener("submit", (evento) => {
 
     console.log(agendamento);
 });
+
+// Rolagem suave para os links de navegação interna (#inicio, #servicos, #barbeiros, #agendamento, #contato)
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", (evento) => {
+        const idAlvo = link.getAttribute("href");
+        if (idAlvo && idAlvo !== "#") {
+            const elementoAlvo = document.querySelector(idAlvo);
+            if (elementoAlvo) {
+                evento.preventDefault();
+                elementoAlvo.scrollIntoView({
+                    behavior: "smooth"
+                });
+                history.pushState(null, "", idAlvo);
+            }
+        }
+    });
+});
+

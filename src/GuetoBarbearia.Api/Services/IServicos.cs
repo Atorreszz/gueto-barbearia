@@ -1,11 +1,10 @@
-﻿namespace GuetoBarbearia.Api.Services;
+namespace GuetoBarbearia.Api.Services;
 
 public interface IServicos
 {
-    public List<Servico> ObterTodos();
-    public Servico ObterPorId(int id);
-    public Servico Adicionar(Servico servico);
-    public Servico Atualizar(int id, Servico servicoAtualizado);
-    public bool Remover(int id);
-
+    public Task<List<Servico>> ObterTodos();
+    public Task<Servico?> ObterPorId(int id);
+    public Task<Servico> Adicionar(Servico novoservico);
+    public Task<Servico?> Atualizar(int id, Servico servicoAtualizado);
+    public Task<bool> Remover(int id);
 }

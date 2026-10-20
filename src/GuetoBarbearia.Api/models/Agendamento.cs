@@ -1,17 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace GuetoBarbearia.Api.models
+namespace GuetoBarbearia.Api.models;
+
+public class Agendamento
 {
-    public class Agendamento
-    {
-        public int Id {get;set;}
-        public string NomeCliente {get;set;} 
-        public string TelefoneCliente {get;set;} 
-        public string ServicoId {get;set;} 
-        public DateOnly Data {get;set;}
-        public TimeOnly Horario {get;set;}
-    }
+    public int Id { get; set; }
+    public string NomeCliente { get; set; } = string.Empty;
+    public string TelefoneCliente { get; set; } = string.Empty;
+    public string ServicoId { get; set; } = string.Empty;
+    public DateOnly Data { get; set; }
+    public TimeOnly Horario { get; set; }
 }
