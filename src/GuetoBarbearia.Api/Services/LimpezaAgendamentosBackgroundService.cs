@@ -18,6 +18,8 @@ public class LimpezaAgendamentosBackgroundService : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
+
         while (!stoppingToken.IsCancellationRequested)
         {
             try
@@ -25,24 +27,37 @@ public class LimpezaAgendamentosBackgroundService : BackgroundService
                 using var scope = _serviceProvider.CreateScope();
                 var context = scope.ServiceProvider.GetRequiredService<GuetoDbContext>();
 
-                var hoje = DateOnly.FromDateTime(DateTime.Now);
+                var agora = DateTime.Now;
+                var hoje = DateOnly.FromDateTime(agora);
+                var horaAtual = TimeOnly.FromDateTime(agora);
 
-                // Exclui todos os agendamentos anteriores à data de hoje
-                var deletados = await context.Agendamentos
-                    .Where(a => a.Data < hoje)
-                    .ExecuteDeleteAsync(stoppingToken);
+                var agendamentosParaFinalizar = await context.Agendamentos
+                    .Where(a =>
+                        a.Status == "Agendado" &&
+                        (a.Data < hoje || (a.Data == hoje && a.Horario < horaAtual)))
+                    .ToListAsync(stoppingToken);
 
-                if (deletados > 0)
+                if (agendamentosParaFinalizar.Count > 0)
                 {
-                    _logger.LogInformation("{Count} agendamento(s) expirado(s) foram excluídos do banco de dados.", deletados);
+                    foreach (var ag in agendamentosParaFinalizar)
+                        ag.Status = "Finalizado";
+
+                    await context.SaveChangesAsync(stoppingToken);
+
+                    _logger.LogInformation(
+                        "{Count} agendamento(s) marcado(s) como Finalizado.",
+                        agendamentosParaFinalizar.Count);
                 }
+            }
+            catch (OperationCanceledException)
+            {
+                break;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao tentar excluir agendamentos expirados no banco de dados.");
+                _logger.LogError(ex, "Erro ao finalizar agendamentos expirados.");
             }
 
-            // Executa a verificação a cada 1 hora
             await Task.Delay(TimeSpan.FromHours(1), stoppingToken);
         }
     }

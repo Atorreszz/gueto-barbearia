@@ -624,3 +624,38 @@ footer p {
         font-size: 1.15rem;
     }
 }
+
+/* --- Botão WhatsApp no resumo do agendamento --- */
+.botao-whatsapp {
+    display: inline-block;
+    margin-top: 14px;
+    background-color: #25D366;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.botao-whatsapp:hover {
+    background-color: #1DA851;
+    transform: translateY(-1px);
+}
+
+/* Mensagem de resumo pós-agendamento */
+.resumo-info {
+    margin-top: 12px;
+    font-size: 0.88rem;
+    color: var(--cor-texto-secundario);
+    font-style: italic;
+}
+
+/* Erro global (retorno da API) */
+#erro-global:not(:empty) {
+    padding: 10px 14px;
+    background-color: rgba(231, 76, 60, 0.12);
+    border: 1px solid #e74c3c;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}

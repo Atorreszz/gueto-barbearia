@@ -27,39 +27,85 @@ namespace GuetoBarbearia.Api.Controllers
         {
             var agendamento = await agendamentoService.ObterPorId(id);
             if (agendamento is null)
-            {
-                return NotFound($"Agendamento Com Id {id} não Encontrado");
-            }
+                return NotFound($"Agendamento com ID {id} não encontrado.");
+
             return Ok(agendamento);
+        }
+
+        [HttpGet("horarios-disponiveis")]
+        public async Task<ActionResult<List<string>>> ObterHorariosDisponiveis(
+            [FromQuery] DateOnly data,
+            [FromQuery] int servicoId)
+        {
+            try
+            {
+                var horarios = await agendamentoService.ObterHorariosDisponiveis(data, servicoId);
+                return Ok(horarios);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { erro = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { erro = "Erro interno ao buscar horários.", detalhe = ex.Message });
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult<Agendamento>> Post(Agendamento novoAgendamento)
         {
-            var agendamentoCriado = await agendamentoService.Adicionar(novoAgendamento);
-            return CreatedAtAction(nameof(Get), new { id = agendamentoCriado.Id }, agendamentoCriado);
+            try
+            {
+                var agendamentoCriado = await agendamentoService.Adicionar(novoAgendamento);
+                return CreatedAtAction(nameof(Get), new { id = agendamentoCriado.Id }, agendamentoCriado);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { erro = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { erro = "Erro interno ao criar agendamento.", detalhe = ex.Message });
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<Agendamento>> Put(int id, Agendamento agendamentoAtualizado)
         {
-            var agendamento = await agendamentoService.Atualizar(id, agendamentoAtualizado);
-            if (agendamento is null)
+            try
             {
-                return NotFound($"Agendamento com ID {id} Não Encontrado");
+                var agendamento = await agendamentoService.Atualizar(id, agendamentoAtualizado);
+                if (agendamento is null)
+                    return NotFound($"Agendamento com ID {id} não encontrado.");
+
+                return Ok(agendamento);
             }
-            return Ok(agendamento);
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { erro = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { erro = "Erro interno ao atualizar agendamento.", detalhe = ex.Message });
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var deletou = await agendamentoService.Remover(id);
-            if (!deletou)
+            try
             {
-                return NotFound($"Agendamento com ID {id} não encontrado.");
+                var cancelou = await agendamentoService.Remover(id);
+                if (!cancelou)
+                    return NotFound($"Agendamento com ID {id} não encontrado.");
+
+                return NoContent();
             }
-            return NoContent();
+            catch (Exception ex)
+            {
+                return BadRequest(new { erro = ex.Message });
+            }
         }
     }
 }

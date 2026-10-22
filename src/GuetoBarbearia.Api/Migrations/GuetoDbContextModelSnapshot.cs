@@ -35,7 +35,8 @@ namespace GuetoBarbearia.Api.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<decimal>("Preco")
                         .HasColumnType("numeric");
@@ -61,9 +62,13 @@ namespace GuetoBarbearia.Api.Migrations
 
                     b.Property<string>("NomeCliente")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
-                    b.Property<string>("ServicoId")
+                    b.Property<int>("ServicoId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -73,7 +78,45 @@ namespace GuetoBarbearia.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ServicoId");
+
                     b.ToTable("Agendamentos");
+                });
+
+            modelBuilder.Entity("GuetoBarbearia.Api.models.Usuario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SenhaHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("GuetoBarbearia.Api.models.Agendamento", b =>
+                {
+                    b.HasOne("GuetoBarbearia.Api.Servico", "Servico")
+                        .WithMany()
+                        .HasForeignKey("ServicoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Servico");
                 });
 #pragma warning restore 612, 618
         }

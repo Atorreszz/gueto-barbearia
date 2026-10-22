@@ -43,20 +43,36 @@ namespace GuetoBarbearia.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Servico>> Post(Servico novoServico)
         {
-            var servicoCriado = await servicosServices.Adicionar(novoServico);
-            return CreatedAtAction(nameof(Get), new { id = servicoCriado.Id }, servicoCriado);
+            try
+            {
+                var servicoCriado = await servicosServices.Adicionar(novoServico);
+                return CreatedAtAction(nameof(Get), new { id = servicoCriado.Id }, servicoCriado);
+            }
+            catch (Exception exeption)
+            {
+                return BadRequest(exeption.Message);
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<Servico>> Put(int id, Servico servicoAtualizado)
         {
-            var servico = await servicosServices.Atualizar(id, servicoAtualizado);
-            if (servico is null)
+            try
             {
-                return NotFound($"Servico com ID {id} Não Encontrado");
+
+
+                var servico = await servicosServices.Atualizar(id, servicoAtualizado);
+                if (servico is null)
+                {
+                    return NotFound($"Servico com ID {id} Não Encontrado");
+                }
+
+                return Ok(servico);
             }
-   
-            return Ok(servico);
+            catch (Exception exeption)
+            {
+                return BadRequest(exeption.Message);
+            }
         }
 
         [HttpDelete("{id}")]
