@@ -1,13 +1,60 @@
-# .NET
+# ===================================================================
+# Compilação e Build do .NET
+# ===================================================================
 **/bin/
 **/obj/
+[Bb]in/
+[Oo]bj/
+*.dll
+*.exe
+*.pdb
 
-# Rider / JetBrains
-.idea/
-
+# ===================================================================
+# IDEs e Editores
+# ===================================================================
 # Visual Studio
 .vs/
-
-# Arquivos locais
 *.user
+*.userosscache
 *.suo
+*.userprefs
+*.sln.docstates
+
+# JetBrains Rider
+.idea/
+
+# Visual Studio Code
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/
+
+# ===================================================================
+# Arquivos de Segredos e Configurações Locais/Sensíveis (NÃO ENVIAR)
+# ===================================================================
+.env
+.env.*
+!.env.example
+*.env
+appsettings*.local.json
+appsettings.Local.json
+appsettings.Production.json
+secrets.json
+
+# ===================================================================
+# Logs e Arquivos Temporários
+# ===================================================================
+*.log
+logs/
+temp/
+tmp/
+TestResults/
+
+# ===================================================================
+# Arquivos do Sistema Operacional
+# ===================================================================
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db

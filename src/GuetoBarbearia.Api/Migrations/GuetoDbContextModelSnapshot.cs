@@ -91,11 +91,7 @@ namespace GuetoBarbearia.Api.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Nome")
+                    b.Property<string>("NomeUsuario")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -104,6 +100,9 @@ namespace GuetoBarbearia.Api.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("NomeUsuario")
+                        .IsUnique();
 
                     b.ToTable("Usuarios");
                 });

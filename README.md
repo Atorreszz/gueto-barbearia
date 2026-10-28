@@ -215,11 +215,12 @@ gueto-barbearia/
    cd gueto-barbearia
    ```
 
-2. **Configure a string de conexão:**
-   Defina a connection string do PostgreSQL utilizando o gerenciador de segredos do .NET ou no arquivo `appsettings.Development.json`:
+2. **Configure os segredos locais (Banco de Dados e JWT):**
+   Defina a connection string do PostgreSQL e a chave JWT utilizando o **User Secrets** do .NET (ou crie um arquivo `.env` baseado no `.env.example`):
    ```bash
    cd src/GuetoBarbearia.Api
-   dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Host=localhost;Port=5432;Database=gueto_db;Username=postgres;Password=sua_senha"
+   dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Host=localhost;Port=5432;Database=gueto_barbearia;Username=postgres;Password=sua_senha"
+   dotnet user-secrets set "Jwt:Key" "sua_chave_secreta_com_minimo_32_caracteres"
    ```
 
 3. **Aplique as Migrations para criar as tabelas no PostgreSQL:**
