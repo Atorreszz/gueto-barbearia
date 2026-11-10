@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using GuetoBarbearia.Api;
 using GuetoBarbearia.Api.Data;
 using GuetoBarbearia.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GuetoBarbearia.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ServicosController : ControllerBase
@@ -21,14 +23,16 @@ namespace GuetoBarbearia.Api.Controllers
         {
             this.servicosServices = servicos;
         }
-
+        
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<List<Servico>>> Get()
         {
             var servicos = await servicosServices.ObterTodos();
             return Ok(servicos);
         }
-
+        
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<Servico>> Get(int id)
         {
@@ -39,7 +43,8 @@ namespace GuetoBarbearia.Api.Controllers
             }
             return Ok(servico);
         }
-
+        
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<Servico>> Post(Servico novoServico)
         {
@@ -53,7 +58,7 @@ namespace GuetoBarbearia.Api.Controllers
                 return BadRequest(exeption.Message);
             }
         }
-
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Servico>> Put(int id, Servico servicoAtualizado)
         {
@@ -74,7 +79,7 @@ namespace GuetoBarbearia.Api.Controllers
                 return BadRequest(exeption.Message);
             }
         }
-
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {

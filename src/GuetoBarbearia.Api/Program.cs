@@ -1,8 +1,9 @@
+using System.Security.Claims;
+using System.Text;
 using GuetoBarbearia.Api;
 using GuetoBarbearia.Api.Data;
 using GuetoBarbearia.Api.models;
 using GuetoBarbearia.Api.Services;
-using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
@@ -18,11 +19,12 @@ builder.Services.AddSwaggerGen(x =>
 {
     x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = @"Insira o token JWT no campo abaixo usando o seguinte formato: Bearer {seu_token}",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
+       Description = "Insira o token JWT gerado no login. Não é necessário digitar 'Bearer ', basta colar o token.",
+       Name = "Authorization",
+       In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT"
     });
 
     x.AddSecurityRequirement(document => new OpenApiSecurityRequirement
@@ -70,8 +72,34 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = JwtConfig["Issuer"],
         ValidAudience = JwtConfig["Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(key)
-        
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        RoleClaimType = ClaimTypes.Role,
+        NameClaimType = ClaimTypes.Name
+    };
+
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            var authHeader = context.Request.Headers.Authorization.ToString();
+            if (!string.IsNullOrWhiteSpace(authHeader))
+            {
+                if (authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+                {
+                    var token = authHeader["Bearer ".Length..].Trim();
+                    if (token.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+                    {
+                        token = token["Bearer ".Length..].Trim();
+                    }
+                    context.Token = token;
+                }
+                else
+                {
+                    context.Token = authHeader.Trim();
+                }
+            }
+            return Task.CompletedTask;
+        }
     };
 });
 builder.Services.AddCors(options =>
@@ -103,8 +131,13 @@ void CarregarArquivoEnv()
     var caminhos = new[]
     {
         Path.Combine(Directory.GetCurrentDirectory(), ".env"),
+        Path.Combine(Directory.GetCurrentDirectory(), "..", ".env"),
+        Path.Combine(Directory.GetCurrentDirectory(), "..", "..", ".env"),
         Path.Combine(AppContext.BaseDirectory, ".env"),
-        Path.Combine(Directory.GetCurrentDirectory(), "..", "..", ".env")
+        Path.Combine(AppContext.BaseDirectory, "..", ".env"),
+        Path.Combine(AppContext.BaseDirectory, "..", "..", ".env"),
+        Path.Combine(AppContext.BaseDirectory, "..", "..", "..", ".env"),
+        Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", ".env")
     };
 
     foreach (var caminho in caminhos)

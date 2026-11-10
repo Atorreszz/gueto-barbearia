@@ -3,6 +3,7 @@ using System.Security.Claims;
 using GuetoBarbearia.Api.Data;
 using System.Text;
 using GuetoBarbearia.Api.models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using Login = GuetoBarbearia.Api.models.Login;
 
 namespace GuetoBarbearia.Api.Controllers
 {
+   
     [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
@@ -71,6 +73,10 @@ namespace GuetoBarbearia.Api.Controllers
             {
                 return Unauthorized("Usuário ou senha inválidos.");
             }
+
+            string role = string.Equals(usuarioBanco.NomeUsuario.Trim(), "admin", StringComparison.OrdinalIgnoreCase)
+                ? "admin"
+                : "user";
             
             var jwtconfig = configuration.GetSection("Jwt");
             var jwtKey = jwtconfig["Key"] ?? throw new InvalidOperationException("Chave JWT não configurada.");
@@ -80,7 +86,11 @@ namespace GuetoBarbearia.Api.Controllers
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim("usuario", login.Usuario),
+                    new Claim(ClaimTypes.NameIdentifier, usuarioBanco.Id.ToString()),
+                    new Claim(ClaimTypes.Name, usuarioBanco.NomeUsuario),
+                    new Claim("user", usuarioBanco.NomeUsuario),
+                    new Claim(ClaimTypes.Role, role),
+                    new Claim("role", role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 Issuer = jwtconfig["Issuer"],
@@ -90,7 +100,12 @@ namespace GuetoBarbearia.Api.Controllers
             };
             var token = tokenhandler.CreateToken(tokenDescriptor);
             var TokenString = tokenhandler.WriteToken(token);
-            return Ok(new { token = TokenString });
+            return Ok(new
+            {
+                token = TokenString,
+                usuario = usuarioBanco.NomeUsuario,
+                role = role
+            });
         }
     }
 }
